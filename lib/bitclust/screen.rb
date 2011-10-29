@@ -176,7 +176,6 @@ module BitClust
 
     def load(id)
       preproc(File.read("#{@prefix}/#{id}", :encoding => Encoding::EUC_JP))
-
     end
 
     private
