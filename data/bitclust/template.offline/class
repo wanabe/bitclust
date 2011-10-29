@@ -28,7 +28,7 @@
 <%
     headline_push
 %>
-<%= headline("Abstract") %>
+<%= headline(_("Abstract")) %>
 <%= compile_rd(@entry.source) %>
 
 <%
