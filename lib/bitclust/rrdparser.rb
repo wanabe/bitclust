@@ -83,6 +83,8 @@ module BitClust
 
     def do_parse(f)
       f.skip_blank_lines
+      @context.categorize f.gets_if(/\Acategory\s(.*)/, 1)
+      f.skip_blank_lines
       f.while_match(/\Arequire\s/) do |line|
         @context.require line.split[1]
       end
@@ -336,6 +338,10 @@ end
       attr_reader :klass
       attr_accessor :type
       attr_accessor :visibility
+
+      def categorize(category)
+        @library.category = category
+      end
 
       def require(libname)
         @library.require @db.get_library(libname)
