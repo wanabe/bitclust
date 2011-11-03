@@ -24,13 +24,13 @@ module BitClust
 
     def parse_file(path, filename, properties)
       fopen(path, 'r:EUC-JP') {|f|
-        return parse(f, filename)
+        return parse(f, filename, properties)
       }
     end
 
-    def parse(f, filename)
+    def parse(f, filename, params)
       @filename = filename
-      file_entries LineInput.new(f)
+      file_entries LineInput.new(Preprocessor.wrap(f, params))
       @db.functions
     end
 
