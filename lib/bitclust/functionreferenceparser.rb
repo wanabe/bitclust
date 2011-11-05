@@ -53,7 +53,8 @@ module BitClust
         f.type = h.type
         f.name = h.name
         f.params = h.params
-        f.source = body.join('')
+        f.source = parse_body(body.join(''))
+        f.category = @category
       }
     end
 
@@ -67,6 +68,13 @@ module BitClust
       h.name = m[4]
       h.params = m[5].strip if m[5]
       h
+    end
+
+    def parse_body(body)
+      body.sub(/\A\n*category\s(.*)\n/) do
+        @category = $1
+        ""
+      end
     end
 
   end

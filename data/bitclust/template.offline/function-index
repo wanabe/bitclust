@@ -7,18 +7,32 @@
     headline_init
 %>
 <%= headline(_("Function Index")) %>
+<%
+    weight = {"" => "\x7f\x7f"}
+    entry_table = @entries.group_by{|lib| lib.category }.to_a
+    entry_table.sort_by! do |pair|
+      category = pair[0]
+      pair.last.sort!
+      pair[0] = "Other" if category == ""
+      weight[category] || category
+    end
+    headline_push
+    entry_table.each do |category, funcs|
+%>
+<%= headline(_(category)) %>
 <table class="entries functions">
 <%
-    headline_push
-    @entries.each do |f|
+      funcs.each do |f|
 %>
 <tr>
 <td class="signature"><%= function_link(f.name) %></td>
 <td class="description"><%= compile_rd(f.synopsis_source) %></td>
 </tr>
 <%
+      end
+%>
+</table>
+<%
     end
     headline_pop
 %>
-</table>
-

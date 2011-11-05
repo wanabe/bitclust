@@ -10,12 +10,16 @@ All Functions
 関数一覧
 All Libraries
 ライブラリ一覧
+Array
+配列
 Builtin
 組み込み
 Builtin Library
 組み込みライブラリ
 CharacterEncoding
 文字コード
+Class/Module
+クラス・モジュール
 Classes
 クラス
 Class Index
@@ -24,10 +28,16 @@ Classes/Modules
 クラスとモジュール
 CommandLine
 コマンドライン
+Compile/Eval
+コンパイル・評価
 Constants
 定数
+Conversion
+変換
 Database
 データベース
+DataClass
+Dataクラス
 Date/Time
 時間・日付
 Description
@@ -38,18 +48,24 @@ Development
 開発
 Entry
 エントリ
+Exception/Jump
+例外・ジャンプ
 Exception Classes
 例外クラス
 File
 ファイル
 FileFormat
 ファイルフォーマット
+Flag
+フラグ
 Function Index
 関数一覧
 I/O
 入出力
 Index
 目次
+Init/Finalize
+前処理・後処理
 Inherited Methods
 継承したメソッド
 Instance Methods
@@ -58,8 +74,12 @@ Library
 ライブラリ
 Library Index
 ライブラリ一覧
+Load
+ロード
 Math
 数学
+Memory
+メモリ
 Method
 メソッド
 Modules
@@ -68,12 +88,20 @@ Module Functions
 モジュール関数
 Network
 ネットワーク
+Numeric
+数値
+Object
+オブジェクト
 Objects
 オブジェクト
 Private Instance Methods
 privateメソッド
 Private Singleton Methods
 private特異メソッド
+Proc/Block
+Proc・ブロック
+Regexp
+正規表現
 Required Libraries
 同時にrequireされるライブラリ
 %d Results
@@ -84,20 +112,32 @@ Search
 検索
 Search Results
 検索結果
+Security
+セキュリティ
 Signature
 定義
 Singleton Methods
 特異メソッド
 Special Variables
 特殊変数
+String
+文字列
 Sub-Libraries
 サブライブラリ
+Symbol/Id
+シンボル・ID
+Table/Hash
+テーブル・ハッシュ
 Text
 テキスト
 Thread
 スレッド
+Type/Class
+型・クラス
 Other
 その他
+Variable/Constant
+変数・定数
 ancestors
 クラスの継承リスト
 class %s
