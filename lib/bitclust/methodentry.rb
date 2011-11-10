@@ -140,7 +140,7 @@ module BitClust
     end
 
     def public?
-      visibility() != :private
+      ![:private, :undefined].include?(visibility())
     end
 
     def protected?

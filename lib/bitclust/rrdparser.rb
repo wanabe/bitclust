@@ -220,7 +220,7 @@ end
       f.skip_blank_lines
       f.while_match(/\A==[^=]/) do |line|
         case line.sub(/\A==/, '').strip
-        when /\A((?:public|private|protected)\s+)?(?:(class|singleton|instance)\s+)?methods?\z/i
+        when /\A(?:(public|private|protected|undefined)\s+)?(?:(class|singleton|instance)\s+)?methods?\z/i
           @context.visibility = ($1 || 'public').downcase.intern
           t = ($2 || 'instance').downcase.sub(/class/, 'singleton')
           @context.type = "#{t}_method".intern
@@ -452,7 +452,7 @@ end
         id = method_id(chunk)
         @db.open_method(id) {|m|
           m.names      = chunk.names.sort
-          m.kind       = @kind
+          m.kind       = @visibility == :undefined ? :undefined : @kind
           m.visibility = @visibility || :public
           m.source     = chunk.source
           case @kind
