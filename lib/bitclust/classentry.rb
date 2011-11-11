@@ -365,7 +365,13 @@ module BitClust
     def inherited_method_specs
       cname = name()
       _index().map {|mname, specstr| MethodSpec.parse(specstr) }\
-          .reject {|spec| spec.klass == cname }.uniq
+          .select {|spec| spec.klass != cname && @db.get_method(spec).defined? }.uniq
+    end
+
+    def added_inherited_method_specs
+      cname = name()
+      _index().map {|mname, specstr| MethodSpec.parse(specstr) }\
+          .reject {|spec| spec.klass == cname || @db.get_method(spec).defined? }.uniq\
     end
 
     def clear_cache

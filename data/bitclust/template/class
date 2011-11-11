@@ -142,6 +142,28 @@
 <%
       end
     end
+%>
+
+<%  spec_table = @entry.added_inherited_method_specs.group_by{|spec| spec.klass}
+    unless spec_table.empty?  %>
+<%= headline(_('Added Inherited Methods')) %>
+<%
+      @entry.ancestors.each do |ancestor|
+        next unless specs = spec_table[ancestor.name]
+        headline_push
+%>
+<%= headline(ancestor.name) %>
+<p><code>
+<%      specs.each do |s| %>
+<%=       method_link(s.to_s, (s.type == '#' ? s.method : s.type + s.method)) %>
+<%
+        end
+        headline_pop
+%>
+</code></p>
+<%    end %>
+<%
+    end
     headline_pop
 %>
 
