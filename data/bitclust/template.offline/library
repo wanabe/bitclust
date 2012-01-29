@@ -30,7 +30,7 @@
 <% draw_tree = proc do |list, tree, indent = 0| %>
 <tr>
 <%   list.each do |c| %>
-<td class="signature" style="text-indent: <%= indent * 1.0%>em;">
+<td class="signature" style="text-indent: <%= indent * 1.0%>em;"><span style="display:none"><%= "&nbsp;" * indent %></span>
 <%= class_link(c.name, c.name) %></td>
 <td class="description"><%= compile_rd(c.synopsis_source) %></td>
 </tr>
