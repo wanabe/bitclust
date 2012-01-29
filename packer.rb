@@ -63,7 +63,7 @@ rescue OptionParser::ParseError => err
   exit 1
 end
 
-bitclust_command = File.join(bitclust_src_path, "bin/bitclust.rb")
+bitclust_command = File.join(bitclust_src_path, "bin/bitclust")
 
 def system_verbose(*args)
   puts args.inspect
@@ -138,14 +138,14 @@ Ruby リファレンスマニュアルの簡易 Web サーバシステムです。
 使い方に関しては以下の URL を参照してください。
 </p>
 <ul>
-  <li><a href="http://redmine.ruby-lang.org/projects/rurema/wiki/ReleasePackageHowTo">http://redmine.ruby-lang.org/projects/rurema/wiki/ReleasePackageHowTo</a></li>
+  <li><a href="http://bugs.ruby-lang.org/projects/rurema/wiki/ReleasePackageHowTo">http://bugs.ruby-lang.org/projects/rurema/wiki/ReleasePackageHowTo</a></li>
 </ul>
 
 <p>
 プロジェクト全体に関しては以下の URL を参照してください。
 </p>
 <ul>
-  <li><a href="http://redmine.ruby-lang.org/projects/rurema/wiki">http://redmine.ruby-lang.org/projects/rurema/wiki</a></li>
+  <li><a href="http://bugs.ruby-lang.org/projects/rurema/wiki">http://bugs.ruby-lang.org/projects/rurema/wiki</a></li>
 </ul>
 
 </body>
@@ -164,7 +164,7 @@ database_versions.each do |version|
       f.puts(<<-CMD.gsub(/\r?\n/, "\r\n"))
 @echo off
 pushd "%~dp0"
-ruby -Ke -I bitclust/lib bitclust/bin/refe.rb -d #{database_dir} -e sjis %*
+ruby -Ke -I bitclust/lib bitclust/bin/refe -d #{database_dir} -e sjis %*
 popd
       CMD
     end
@@ -175,7 +175,7 @@ popd
       f.puts <<-SH
 #!/bin/sh
 cd "`dirname "$0"`"
-exec ruby -Ke -I bitclust/lib bitclust/bin/refe.rb -d #{database_dir} "$@"
+exec ruby -Ke -I bitclust/lib bitclust/bin/refe -d #{database_dir} "$@"
       SH
     end
   end
