@@ -17,14 +17,14 @@ end
 
 bitclust_src_path = File.dirname(File.expand_path(__FILE__))
 parent_path = File.dirname(bitclust_src_path)
-output_path = File.join(parent_path, "ruby-refm-1.9.1-dynamic")
+output_path = File.join(parent_path, "ruby-refm-1.9.3-dynamic")
 bitclust_dest_dir = "bitclust"
 rubydoc_refm_api_src_path = File.join(parent_path, "rubydoc/refm/api/src")
 rubydoc_refm_capi_src_path = File.join(parent_path, "rubydoc/refm/capi/src/*")
 database_encoding = "euc-jp"
 database_versions = [
   "1.8.7",
-  "1.9.2",
+  "1.9.3",
 ]
 database_version_to_dir = proc {|version| "db-" + version.tr(".", "_") }
 title = "bitclust"
@@ -64,6 +64,7 @@ rescue OptionParser::ParseError => err
 end
 
 bitclust_command = File.join(bitclust_src_path, "bin/bitclust")
+bitclust_libdir = File.join(bitclust_src_path, "lib")
 
 def system_verbose(*args)
   puts args.inspect
@@ -85,9 +86,9 @@ end
 database_versions.each do |version|
   database_path = File.join(output_path, database_version_to_dir.call(version))
   unless File.exist?(database_path)
-    system_verbose(ruby, "-Ke", bitclust_command, "--database=#{database_path}", "init", "encoding=#{database_encoding}", "version=#{version}")
-    system_verbose(ruby, "-Ke", bitclust_command, "--database=#{database_path}", "update", "--stdlibtree=#{rubydoc_refm_api_src_path}")
-    system_verbose(ruby, "-Ke", bitclust_command, "--database=#{database_path}", "--capi", "update", *Dir.glob(rubydoc_refm_capi_src_path).to_a)
+    system_verbose(ruby, "-Ke", "-I#{bitclust_libdir}", bitclust_command, "--database=#{database_path}", "init", "encoding=#{database_encoding}", "version=#{version}")
+    system_verbose(ruby, "-Ke", "-I#{bitclust_libdir}", bitclust_command, "--database=#{database_path}", "update", "--stdlibtree=#{rubydoc_refm_api_src_path}")
+    system_verbose(ruby, "-Ke", "-I#{bitclust_libdir}", bitclust_command, "--database=#{database_path}", "--capi", "update", *Dir.glob(rubydoc_refm_capi_src_path).to_a)
   end
 end
 
