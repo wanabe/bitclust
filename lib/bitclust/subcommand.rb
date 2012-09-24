@@ -445,7 +445,7 @@ module BitClust
     def initialize
       @prepare = nil
       @cleanup = nil
-      @versions = ["1.8.7", "1.9.2", "1.9.3"]
+      @versions = ["1.8.7", "1.9.3"]
       @parser = OptionParser.new {|opt|
         opt.banner = "Usage: #{File.basename($0, '.*')} setup [options]"
         opt.on('--prepare', 'Prepare config file and checkout repository. Do not create database.') {
@@ -470,7 +470,7 @@ module BitClust
       @config[:versions].each do |version|
         puts "Generating database for Ruby#{version}..."
         prefix = "#{@config[:database_prefix]}-#{version}"
-        FileUtils.rm_ rf(prefix) if @cleanup
+        FileUtils.rm_rf(prefix) if @cleanup
         init_argv = ["version=#{version}", "encoding=#{@config[:encoding]}"]
         db = BitClust::MethodDatabase.new(prefix)
         InitCommand.new.exec(db, init_argv)
@@ -501,11 +501,14 @@ module BitClust
       }
       if config_path.exist?
         @config = YAML.load_file(config_path)
-        unless @config[:versions] == @versions
-          @config[:versions] = @versions
-          @config[:default_version] = @versions.max
+        unless @config[:versions].sort == @versions.sort
+          print("overwrite config file? > [y/N]")
+          if /\Ay\z/i =~ $stdin.gets.chomp
+            @config[:versions] = @versions
+            @config[:default_version] = @versions.max
+            generate_config(config_path, @config)
+          end
         end
-        generate_config(config_path, @config)
       else
         generate_config(config_path, @config)
       end
@@ -519,6 +522,16 @@ module BitClust
     end
 
     def checkout(rubydoc_dir)
+      case RUBY_PLATFORM
+      when /mswin(?!ce)|mingw|cygwin|bccwin/
+        cmd = "svn help > NUL 2> NUL"
+      else
+        cmd = "svn help > /dev/null 2> /dev/null"
+      end
+      unless system(cmd)
+        warn "svn command is not found. Please install Subversion."
+        exit 1
+      end
       system("svn", "co", REPOSITORY_PATH, rubydoc_dir.to_s)
     end
 
@@ -545,6 +558,7 @@ module BitClust
       require 'uri'
 
       @params = {
+        :BindAddress => "0.0.0.0",
         :Port => 10080
       }
       @baseurl = nil
@@ -634,7 +648,7 @@ module BitClust
       end
       if @pid_file
         if File.exist?(@pid_file)
-          $stderr.puts "There is still #{pid_file}.  Is another process running?"
+          $stderr.puts "There is still #{@pid_file}.  Is another process running?"
           exit 1
         end
         @pid_file = File.expand_path(@pid_file)
@@ -709,7 +723,7 @@ module BitClust
       exit if $".include?("exerb/mkexy.rb")
       if @autop && !@browser
         case RUBY_PLATFORM
-        when /mswin/
+        when /mswin(?!ce)|mingw|cygwin|bccwin/
           @browser = "start"
         end
       end

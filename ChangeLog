@@ -1,3 +1,38 @@
+2012-09-16  Sho Hashimoto  <sho-h@netlab.jp>
+
+	* lib/bitclust/subcommand.rb (BitClust::SetupCommand#checkout):
+	  check svn installed Windows, too. (see #7026)
+
+2012-09-15  Sho Hashimoto  <sho-h@netlab.jp>
+
+	* lib/bitclust/subcommand.rb (BitClust::ServerCommand#exec): start
+	  browser mingw, cygwin and bccwin. (same as r5167)
+
+2012-09-02  okkez  <okkez000@gmail.com>
+
+	* lib/bitclust/subcommand.rb (BitClust::SetupCommand#prepare): do
+	not overwrite config.yml if exist it. fix #6949
+
+2012-08-26  Sho Hashimoto  <sho-h@netlab.jp>
+
+	* lib/bitclust/subcommand.rb (BitClust::ServerCommand#initialize):
+	  add :BindAddress to @params to delete warning.
+
+2012-08-25  Sho Hashimoto  <sho-h@netlab.jp>
+
+	* lib/bitclust/runner.rb: do not push Pathname object to
+	  $LOAD_PATH. (fixes #6925)
+
+2012-08-25  Sho Hashimoto  <sho-h@netlab.jp>
+
+	* lib/bitclust/subcommand.rb (BitClust::ServerCommand#parse): fix
+	  instance method reference. (fixes #6924)
+
+2012-08-25  Sho Hashimoto  <sho-h@netlab.jp>
+
+	* lib/bitclust/nameutils.rb (BitClust::NameUtils): add #!~ to
+	  methodname (fixes #6915)
+
 2012-08-15  okkez  <okkez000@gmail.com>
 
 	* standalone.rb: remove unused file.
